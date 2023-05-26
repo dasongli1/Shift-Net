@@ -12,7 +12,7 @@ This repository is the official PyTorch implementation of "A Simple Baseline for
 > **Abstract:** *Video restoration, which aims to restore clear frames from degraded videos, has numerous important applications. The key to video restoration depends on utilizing inter-frame information. However, existing deep learning methods often rely on complicated network architectures, such as optical flow estimation, deformable convolution, and cross-frame self-attention layers, resulting in high computational costs. In this study, we propose a simple yet effective framework for video restoration. Our approach is based on grouped spatial-temporal shift, which is a lightweight and straightforward technique that can implicitly capture inter-frame correspondences for multi-frame aggregation. By introducing grouped spatial shift, we attain expansive effective receptive fields. Combined with basic 2D convolution, this simple framework can effectively aggregate inter-frame information. Extensive experiments demonstrate that our framework outperforms the previous state-of-the-art method, while using less than a quarter of its computational cost, on both video deblurring and video denoising tasks. These results indicate the potential for our approach to significantly reduce computational overhead while maintaining high-quality results.* 
 
 ### Pre-trained Models
-| Task                                 | Dataset | Model      | Visual Results  |
+| Task                                 | Dataset | Model      | Link  |
 | :----------------------------------- | :------ | :----------- | :------------------------ |
 | Video Deblurring                     | GoPro   | Ours+ | [gdrive](https://drive.google.com/file/d/1f79zxmCL-ygVmoJd86OT6uksPGk2BpL0/view?usp=share_link) |
 | Video Deblurring                     | GoPro   | Ours-s | [gdrive](https://drive.google.com/file/d/1WnFZRnXN9ZJebMZaAZF6a0c8f3CrLjR_/view?usp=share_link) |
@@ -25,7 +25,7 @@ This repository is the official PyTorch implementation of "A Simple Baseline for
 
 ### Visual Results
 
-| Task                                 | Dataset | Model      | Visual Results  |
+| Task                                 | Dataset | Model      | Link  |
 | :----------------------------------- | :------ | :----------- | :------------------------ |
 | Video Deblurring                     | GoPro   | Ours+ | [gdrive](https://drive.google.com/file/d/12wJEndw6iJtt4Vg3BeRq7G3bEewPg-Vd/view?usp=share_link) |
 | Video Deblurring                     | GoPro   | Ours-s | [gdrive](https://drive.google.com/file/d/17ybazJfVpiH_RyZJtQOuzVdX3V4EdziL/view?usp=share_link) |
