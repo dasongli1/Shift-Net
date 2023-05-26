@@ -11,7 +11,7 @@ This repository is the official PyTorch implementation of "A Simple Baseline for
 
 > **Abstract:** *Video restoration, which aims to restore clear frames from degraded videos, has numerous important applications. The key to video restoration depends on utilizing inter-frame information. However, existing deep learning methods often rely on complicated network architectures, such as optical flow estimation, deformable convolution, and cross-frame self-attention layers, resulting in high computational costs. In this study, we propose a simple yet effective framework for video restoration. Our approach is based on grouped spatial-temporal shift, which is a lightweight and straightforward technique that can implicitly capture inter-frame correspondences for multi-frame aggregation. By introducing grouped spatial shift, we attain expansive effective receptive fields. Combined with basic 2D convolution, this simple framework can effectively aggregate inter-frame information. Extensive experiments demonstrate that our framework outperforms the previous state-of-the-art method, while using less than a quarter of its computational cost, on both video deblurring and video denoising tasks. These results indicate the potential for our approach to significantly reduce computational overhead while maintaining high-quality results.* 
 
-### Visual Results:
+### Visual Results
 
 | Task                                 | Dataset | Model      | Visual Results  |
 | :----------------------------------- | :------ | :----------- | :------------------------ |
@@ -25,3 +25,15 @@ This repository is the official PyTorch implementation of "A Simple Baseline for
 | Video Denoising                  | Set8   | Ours-s | [gdrive](https://drive.google.com/file/d/11x6IxwIEHPzCVAhiYOD41rs6yerQbzgV/view?usp=share_link) |
 
 
+### Citations
+
+```
+@InProceedings{Li_2023_CVPR,
+    author    = {Li, Dasong and Shi, Xiaoyu and Zhang, Yi and Cheung, Ka Chun and See, Simon and Wang, Xiaogang and Qin, Hongwei and Li, Hongsheng},
+    title     = {A Simple Baseline for Video Restoration With Grouped Spatial-Temporal Shift},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2023},
+    pages     = {9822-9832}
+}
+```
