@@ -13,7 +13,7 @@ This repository is the official PyTorch implementation of "A Simple Baseline for
 
 
 ### Container
-Container: We use the NVIDIA PyTorch Container [21.02](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_21-02.html#rel_21.02).
+Container: NVIDIA PyTorch Container [21.02](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_21-02.html#rel_21.02).
 ```
 cuda 11.2.0
 pytorch 1.8.0a0+52ea372
@@ -24,6 +24,11 @@ TensorRT 7.2.2.3+cuda11.1.0.024
 pip install -r requirements.txt
 python setup.py develop --no_cuda_ext
 ```
+### Data Preparation
+#### 1. GoPro & DVD: download the [datasets](https://drive.google.com/drive/folders/1lCZS0mHJcnQutyupM62tNUJl8JIW8i3Q) following the instructions of [CDVD-TSP](https://github.com/csbhr/CDVD-TSP)
+If you have downloaded the datasets，please put them to './dataset'. It should be like ```./datasets/GoPro/train/blur``` and ```./datasets/GoPro/train/gt```
+#### 2. DAVIS: download [DAIVS-train](https://data.vision.ee.ethz.ch/csergi/share/davis/DAVIS-2017-Unsupervised-trainval-480p.zip) to ```./datasets/DAVIS/JPEGImages/480p```. Download [DAVIS-test](https://github.com/JingyunLiang/VRT/releases/download/v0.0/testset_REDS4.tar.gz) to ```./datasets/DAVIS-test```
+#### 3. Set8: download [Set8](https://github.com/JingyunLiang/VRT/releases/download/v0.0/testset_Set8.tar.gz) to ```./datasets/Set8```
 
 ### Pre-trained Models
 | Task                                 | Dataset | Model      | Link  |
@@ -35,7 +40,42 @@ python setup.py develop --no_cuda_ext
 | Video Denoising                    | DAVIS & Set8| Ours+ | [gdrive](https://drive.google.com/file/d/1zCKZ5t7qRTTEt8_loR_Fa4ODpNOTodyM/view?usp=share_link) |
 | Video Denoising                    | DAVIS & set8 | Ours-s | [gdrive](https://drive.google.com/file/d/1SJBxI2wOwgHAWx5h2N02-1UpIvEKalCg/view?usp=share_link)  |
 
-
+### Inference:
+#### Download the pre-trained models in ```./pretrained_models/```
+#### Video Deblurring: you can adjust one_len in {8,16,24,32,48,96} according to GPU memory.
+* Video Deblurring on GoPro, Ours-s:
+```
+python3 inference/test_deblur_small.py --default_data GOPRO --one_len 96
+```
+* Video Deblurring on GoPro, Ours+: 
+```
+python3 inference/test_deblur.py --default_data GOPRO --one_len 48
+```
+* Video Deblurring on DVD, Ours+: 
+```
+python3 inference/test_deblur.py --default_data DVD --one_len 48
+```
+* Video Deblurring on DVD, Ours-s:
+```
+python3 inference/test_deblur_small.py --default_data DVD --one_len 96
+```
+#### Video Denoising: 
+* Video Denoising on DAVIS, Ours-s: sigma in {10,20,30,40,50}
+```
+python3 inference/test_denoise_small.py --default_data DAVIS --sigma 10
+```
+* Video Denoising on DAVIS, Ours+: sigma in {10,20,30,40,50}
+```
+python3 inference/test_denoise.py --default_data DAVIS --sigma 10
+```
+* Video Denoising on Set8, Ours-s: sigma in {10,20,30,40,50}
+```
+python3 inference/test_denoise_small.py --default_data Set8 --sigma 10
+```
+* Video Denoising on Set8, Ours+: sigma in {10,20,30,40,50}
+```
+python3 inference/test_denoise.py --default_data Set8 --sigma 10
+```
 
 ### Visual Results
 
@@ -50,6 +90,38 @@ python setup.py develop --no_cuda_ext
 | Video Denoising                    | Set8   | Ours+ | [gdrive](https://drive.google.com/file/d/1xm8EnCZqqjSciJAzmIphixUlZUqjioqP/view?usp=share_link) |
 | Video Denoising                  | Set8   | Ours-s | [gdrive](https://drive.google.com/file/d/11x6IxwIEHPzCVAhiYOD41rs6yerQbzgV/view?usp=share_link) |
 
+### Training:
+#### Video Deblurring:
+#### Adjust n_sequence in yml according to GPU memory. 
+* Video Deblurring on GoPro, Ours-s: 
+```
+python -m torch.distributed.launch --nproc_per_node=8 basicsr/train1.py -opt options/gopro_deblur_small.yml --launcher pytorch
+```
+* Training Video Deblurring on GoPro, Ours+: 
+```
+python -m torch.distributed.launch --nproc_per_node=8 basicsr/train1.py -opt options/gopro_deblur.yml --launcher pytorch
+```
+* Video Deblurring on DVD, Ours-s: 
+```
+python -m torch.distributed.launch --nproc_per_node=8 basicsr/train1.py -opt options/gopro_dvd_small.yml --launcher pytorch
+```
+* Video Deblurring on DVD, Ours+: 
+```
+python -m torch.distributed.launch --nproc_per_node=8 basicsr/train1.py -opt options/gopro_dvd.yml --launcher pytorch
+```
+* Increasing the training iterations may further improve the performance.
+#### Video Denoising:
+#### Adjust n_sequence in yml according to GPU memory.
+* Training Video Deblurring on DAVIS, Ours-s: 
+```
+python -m torch.distributed.launch --nproc_per_node=8 basicsr/train2.py -opt options/davis_denoise_small.yml --launcher pytorch
+```
+* Training Video Deblurring on DAVIS, Ours+:
+```
+python -m torch.distributed.launch --nproc_per_node=8 basicsr/train2.py -opt options/davis_denoise.yml --launcher pytorch
+```
+##### ```davis_denoise.yml```: adjust learning rate of Stage-2, see the difference of DAVIS performances betweeen on the [CVPR camera ready](https://openaccess.thecvf.com/content/CVPR2023/papers/Li_A_Simple_Baseline_for_Video_Restoration_With_Grouped_Spatial-Temporal_Shift_CVPR_2023_paper.pdf) and [arXiv](https://arxiv.org/abs/2206.10810):
+
 
 ### Citations
 
@@ -63,3 +135,10 @@ python setup.py develop --no_cuda_ext
     pages     = {9822-9832}
 }
 ```
+
+### Acknowledgement
+In this project, we use parts of codes in:
+- [Basicsr](https://github.com/XPixelGroup/BasicSR)
+- [HINet](https://github.com/megvii-model/HINet)
+- [CDVD-TSP](https://github.com/csbhr/CDVD-TSP)
+- [VRT](https://github.com/JingyunLiang/VRT)
