@@ -1,0 +1,106 @@
+# ------------------------------------------------------------------------
+# Copyright (c) 2021 megvii-model. All Rights Reserved.
+# ------------------------------------------------------------------------
+# Modified from BasicSR (https://github.com/xinntao/BasicSR)
+# Copyright 2018-2020 BasicSR Authors
+# ------------------------------------------------------------------------
+# general settings
+name: DVD_deblur_experiment
+model_type: ImageRestorationModel1
+scale: 1
+num_gpu: 8
+manual_seed: 10
+n_sequence: 23
+n_frames_per_video: 100
+dir_data: ./dataset/DVD/train/
+n_colors: 3
+rgb_range: 1
+no_augment: False
+loss_type: 1*L1
+patch_size: 256
+size_must_mode: 4
+model: gshift_deblur1
+pretrain_models_dir: None
+n_resblock: 3
+n_feat: 32
+
+datasets:
+  train:
+    name: gopro-train
+
+    filename_tmpl: '{}'
+    io_backend:
+      type: lmdb
+
+    gt_size: 256
+    use_flip: true
+    use_rot: true
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 2
+    batch_size_per_gpu: 1
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+# network structures
+# network_g:
+#   type: CDVD_TSP
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+#  visualization: visual/ntire2021-demo
+
+# training settings
+# 1000 * 220 000
+train:
+  optim_g:
+    type: Adam
+    lr: !!float 4e-4
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: TrueCosineAnnealingLR
+    T_max: 600000
+    eta_min: !!float 1e-7
+
+  total_iter: 600000
+  warmup_iter: -1 # no warm up
+
+  # losses
+  pixel_opt:
+    type: PSNRLoss
+    loss_weight: 0.5
+    reduction: mean
+
+# validation settings
+val:
+  val_freq: !!float 5e7
+  save_img: false
+  grids: true
+  crop_size: 256
+  max_minibatch: 8
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+
+# logging settings
+logger:
+  print_freq: 500
+  save_checkpoint_freq: 100002
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500
