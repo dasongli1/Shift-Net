@@ -10,10 +10,9 @@
 This repository is the official PyTorch implementation of "A Simple Baseline for Video Restoration with Spatial-temporal Shift"
 
 > **Abstract:** *Video restoration, which aims to restore clear frames from degraded videos, has numerous important applications. The key to video restoration depends on utilizing inter-frame information. However, existing deep learning methods often rely on complicated network architectures, such as optical flow estimation, deformable convolution, and cross-frame self-attention layers, resulting in high computational costs. In this study, we propose a simple yet effective framework for video restoration. Our approach is based on grouped spatial-temporal shift, which is a lightweight and straightforward technique that can implicitly capture inter-frame correspondences for multi-frame aggregation. By introducing grouped spatial shift, we attain expansive effective receptive fields. Combined with basic 2D convolution, this simple framework can effectively aggregate inter-frame information. Extensive experiments demonstrate that our framework outperforms the previous state-of-the-art method, while using less than a quarter of its computational cost, on both video deblurring and video denoising tasks. These results indicate the potential for our approach to significantly reduce computational overhead while maintaining high-quality results.* 
-<center><img src="figures/comparison0.png" width="30%"></center>
+<p style="text-align:center;"><img src="figures/comparison0.png" width="30%"></p>
 <center><img src="figures/comparison1.png" width="80%"></center>
 <center><img src="figures/qualitative_result1.png" width="80%"></center>
-qualitative_result1.png
 
 ### Container
 Container: NVIDIA PyTorch Container [21.02](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_21-02.html#rel_21.02).
