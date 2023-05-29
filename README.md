@@ -1,6 +1,6 @@
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/no-attention-is-needed-grouped-spatial/deblurring-on-gopro)](https://paperswithcode.com/sota/deblurring-on-gopro?p=no-attention-is-needed-grouped-spatial)
 
-# A Simple Baseline for Video Restoration with Spatial-temporal Shift (CVPR 2023)
+# A Simple Baseline for Video Restoration with Grouped Spatial-temporal Shift (CVPR 2023)
 [paper](https://openaccess.thecvf.com/content/CVPR2023/papers/Li_A_Simple_Baseline_for_Video_Restoration_With_Grouped_Spatial-Temporal_Shift_CVPR_2023_paper.pdf)
 **|** 
 [supplementary](https://openaccess.thecvf.com/content/CVPR2023/supplemental/Li_A_Simple_Baseline_CVPR_2023_supplemental.pdf)
