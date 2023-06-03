@@ -45,7 +45,7 @@ If you have downloaded the datasets，please put them to './dataset'. It should 
 
 ### Inference:
 #### Download the pre-trained models in ```./pretrained_models/```
-#### Video Deblurring: you can adjust one_len in {8,16,24,32,48,96} according to GPU memory.
+#### Video Deblurring: you can adjust one_len in {8,12,16,24,32,48,96} according to GPU memory.
 * Video Deblurring on GoPro, Ours-s:
 ```
 python3 inference/test_deblur_small.py --default_data GOPRO --one_len 96
