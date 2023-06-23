@@ -149,7 +149,8 @@ class Inference:
                         if self.save_image:
                             if not os.path.exists(os.path.join(self.result_path, v)):
                                 os.mkdir(os.path.join(self.result_path, v))
-                            cv2.imwrite(os.path.join(self.result_path, v, '%03d.png'%ele), output_img[...,::-1])
+                            cv2.imwrite(os.path.join(self.result_path, v, '%03d.png'%index), output_img[...,::-1])
+                            index = index + 1
                     postprocess_time = time.time()
                     del output; del in_tensor
                     torch.cuda.empty_cache()
